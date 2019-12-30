@@ -1,0 +1,2 @@
+class AnytException(Exception):
+    pass

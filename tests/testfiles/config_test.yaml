@@ -1,0 +1,7 @@
+anyt-config: 
+  template-path: [
+    "/some/path",
+    "/something",
+    "/else"
+  ]
+  invalid-key: "test"
