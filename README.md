@@ -32,6 +32,12 @@ arguments:
 
 ---
 
+## Options
+
+Anytialize has the following options:
+* \<template-name\> - executes the template
+* list - list all availiable templates
+
 ## Manual Installation
 
 ### 1. Clone repository

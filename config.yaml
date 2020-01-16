@@ -1,4 +1,4 @@
 anyt-config:
   template-path: [
-    "/home/leon/.anyt/templates"
+    "~/.anyt/templates"
   ]

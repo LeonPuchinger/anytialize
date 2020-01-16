@@ -1,9 +1,15 @@
 from .template import Template
-from .config import config_from_path
+from .config import *
 #exports
 from .util import AnytException
 
-def execute(template, args):
-    config = config_from_path("/home/leon/.anyt/templates/config.yaml")
+def run_template(template, args):
+    config = config_default()
     template = Template(template, config["template-path"])
     template.run(args)
+
+def list_templates():
+    config = config_default()
+    templates = Template.find_templates("", config["template-path"])
+    for t in templates:
+        print(t)
