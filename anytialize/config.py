@@ -1,5 +1,6 @@
 import yaml
 import os
+from .util import CONFIG_FILE_EXT
 
 _valid_keys = [
     "template-path",
@@ -25,4 +26,4 @@ def config_from_path(path):
 
 def config_default():
     user = os.path.expanduser("~")
-    return config_from_path(f"{user}/.anyt/config.yaml")
+    return config_from_path(f"{user}/.anyt/config.{CONFIG_FILE_EXT}")

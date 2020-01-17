@@ -113,13 +113,16 @@ A template config file can have the following actions by default:
 * shell (execute shell commands)
 * WIP
 
-inputs are handled by using "$input" with an index behind it
+### Variables
+
+* inputs are handled by using "$input" with an index behind it
+* $tp corresponds to the path of the current template
 
 An example template config with all available options and example arguments could look like this:
 
 ```yaml
 - type: cp
-  src: /path/to/src
+  src: $tp/path/to/src
   dest: /path/to/dest/$input0
 - type: shell
   command: someexecutable

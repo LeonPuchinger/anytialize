@@ -10,6 +10,6 @@ def run_template(template, args):
 
 def list_templates():
     config = config_default()
-    templates = Template.find_templates("", config["template-path"])
+    templates = Template.find_all_templates(config["template-path"])
     for t in templates:
         print(t)

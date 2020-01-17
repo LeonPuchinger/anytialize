@@ -1,7 +1,7 @@
 import os
 import yaml
 from .actions import *
-from .util import AnytException
+from .util import AnytException, CONFIG_FILE_EXT
 
 _valid_keys = {
         "cp": [
@@ -16,8 +16,8 @@ _valid_keys = {
 
 class Template:
     def __init__(self, name, searchpaths):
-        path = next(self.find_templates(name, searchpaths))
-        with open(path, "r") as template:
+        self.path, self.name = self._find_first_template(name, searchpaths)
+        with open(f"{self.path}/{self.name}.{CONFIG_FILE_EXT}", "r") as template:
             self.template = template.read()
 
     def run(self, args=[]):
@@ -29,24 +29,34 @@ class Template:
 
     def _preprocess(self, args):
         for num, arg in enumerate(args):
-            self.template = self.template.replace(f"$input{num}", arg)
+            self.template = self.template.replace(f"$input{num}", arg) #inputs
+        self.template = self.template.replace(f"$tp", f"{self.path}") #template path
 
     @staticmethod
-    def find_templates(name, paths):
-        templates = 0
+    def _loop_templates(paths):
         for path in paths:
             for dirpath, _, files in os.walk(path):
                 for file in files:
                     filename, fileext = os.path.splitext(file)
                     dirname = os.path.basename(dirpath)
-                    if fileext == ".yaml" and filename == dirname:
-                        if filename == name:
-                            yield os.path.join(dirpath, file)
-                        if name == "":
-                            yield filename
-                            templates += 1
+                    if fileext == f".{CONFIG_FILE_EXT}" and filename == dirname:
+                        yield (dirpath, filename)
+
+    @staticmethod
+    def _find_first_template(name, paths):
+        for tpath, tname in Template._loop_templates(paths):
+            if name == tname:
+                return (tpath, tname)
+        raise AnytException(f"ERROR: no template found by the name \"{name}\"")
+        
+    @staticmethod
+    def find_all_templates(paths):
+        templates = 0
+        for tpath, tname in Template._loop_templates(paths):
+            yield tname
+            templates += 1
         if templates == 0:
-            raise AnytException(f"ERROR: no template found by the name \"{name}\"")
+            raise AnytException(f"WARNING: no templates found")
 
     def _parse(self):
         template = yaml.load(self.template, Loader=yaml.FullLoader)
