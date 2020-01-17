@@ -116,7 +116,8 @@ A template config file can have the following actions by default:
 ### Variables
 
 * inputs are handled by using "$input" with an index behind it
-* $tp corresponds to the path of the current template
+* $tp points to the path of the current template
+* $cwd points to the path where the anyt is executed in
 
 An example template config with all available options and example arguments could look like this:
 

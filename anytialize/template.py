@@ -30,7 +30,8 @@ class Template:
     def _preprocess(self, args):
         for num, arg in enumerate(args):
             self.template = self.template.replace(f"$input{num}", arg) #inputs
-        self.template = self.template.replace(f"$tp", f"{self.path}") #template path
+        self.template = self.template.replace("$tp", f"{self.path}") #template path
+        self.template = self.template.replace("$cwd", f"{os.getcwd()}") #current working directory
 
     @staticmethod
     def _loop_templates(paths):
