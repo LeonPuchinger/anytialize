@@ -4,6 +4,9 @@ from .actions import *
 from .util import AnytException, CONFIG_FILE_EXT
 
 _valid_keys = {
+        "mkdir": [
+            "name",
+        ],
         "cp": [
             "src",
             "dest",
@@ -64,6 +67,8 @@ class Template:
         if template == None:
             raise AnytException(f"ERROR: template empty")
         for action in template:
+            if action["type"] == "mkdir":
+                mkdir(action["name"])
             if action["type"] == "cp":
                 copypaste(action["src"], action["dest"])
             if action["type"] == "shell":

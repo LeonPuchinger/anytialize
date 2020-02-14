@@ -109,19 +109,22 @@ c_vscode #example template
 ```
 
 A template config file can have the following actions by default:
+* mkdir (create directory)
 * cp (copypaste file/folder structure)
 * shell (execute shell commands)
 * WIP
 
 ### Variables
 
-* inputs are handled by using "$input" with an index behind it
+* inputs are handled by using "$input" with an index behind it (starting at 0)
 * $tp points to the path of the current template
 * $cwd points to the path where the anyt is executed in
 
 An example template config with all available options and example arguments could look like this:
 
 ```yaml
+- type: mkdir
+  name: foldername
 - type: cp
   src: $tp/path/to/src
   dest: /path/to/dest/$input0
@@ -129,7 +132,7 @@ An example template config with all available options and example arguments coul
   command: someexecutable
   args:
     - $input1
-    - -somearg
+    - "-somearg"
     - maybe/some/path
 ```
 

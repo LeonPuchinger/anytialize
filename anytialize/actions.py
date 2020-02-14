@@ -4,6 +4,16 @@ import subprocess as sp
 from .util import AnytException
 import os
 
+def mkdir(name=""):
+    if len(name) == 0:
+        print("WARNING: mkdir action name empty, skipping action")
+        return
+    if isdir(name):
+        print("WARNING: mkdir action name already exists, skipping action")
+        return
+    print(f"creating directory: \"{name}\"");
+    os.mkdir(name)
+
 #TODO overriding files/dirs
 def copypaste(src="", dest="", override=False):
     if len(src) == 0 or len(dest) == 0:
