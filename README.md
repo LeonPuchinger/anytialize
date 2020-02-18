@@ -110,6 +110,7 @@ c_vscode #example template
 
 A template config file can have the following actions by default:
 * mkdir (create directory)
+* rm (remove directory)
 * cp (copypaste file/folder structure)
 * shell (execute shell commands)
 * WIP
@@ -125,6 +126,9 @@ An example template config with all available options and example arguments coul
 ```yaml
 - type: mkdir
   name: foldername
+- type: rm
+  name: otherfolder
+  recursive: true
 - type: cp
   src: $tp/path/to/src
   dest: /path/to/dest/$input0

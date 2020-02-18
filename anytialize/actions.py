@@ -14,6 +14,26 @@ def mkdir(name=""):
     print(f"creating directory: \"{name}\"");
     os.mkdir(name)
 
+def rm(name="", recursive=False):
+    if len(name) == 0:
+        print("WARNING: rm action name empty, skipping action")
+        return
+    if isdir(name):
+        recursion_warning = "resursively" if recursive else ""
+        print(f"removing directory: \"{name}\" {recursion_warning}")
+        try:
+            if recursive:
+                shutil.rmtree(name)
+            else:
+                os.rmdir(name)
+        except OSError:
+            raise AnytException("ERROR: could not remove directory")
+    else:
+        try:
+            os.remove(name)
+        except OSError:
+            raise AnytException("ERROR: could not remove file")
+
 #TODO overriding files/dirs
 def copypaste(src="", dest="", override=False):
     if len(src) == 0 or len(dest) == 0:

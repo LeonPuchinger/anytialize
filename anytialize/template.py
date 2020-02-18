@@ -7,6 +7,9 @@ _valid_keys = {
         "mkdir": [
             "name",
         ],
+        "rm": [
+            "name"
+        ],
         "cp": [
             "src",
             "dest",
@@ -69,6 +72,8 @@ class Template:
         for action in template:
             if action["type"] == "mkdir":
                 mkdir(action["name"])
+            if action["type"] == "rm":
+                rm(action["name"], action["recursive"])
             if action["type"] == "cp":
                 copypaste(action["src"], action["dest"])
             if action["type"] == "shell":
